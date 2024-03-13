@@ -7,6 +7,21 @@ export default StyleSheet.create({
         flexDirection: 'row',
         borderBottomColor: 'green',
         borderBottomWidth: 3,
-        paddingTop: 30
+        paddingTop: 30,
+        justifyContent: 'space-between',
+        margin: 5,
+    },
+    title: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+    },
+    appName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    author: {
+        fontSize: 12,
+
     }
 });

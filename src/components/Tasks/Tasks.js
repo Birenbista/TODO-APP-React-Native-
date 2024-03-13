@@ -1,20 +1,18 @@
 import { View, Text, ScrollView } from "react-native";
 import Task from "./Task/Task";
 import styles from "./styles";
-
-export default function Tasks(props) {
+import { useSelector } from "react-redux";
+export default function Tasks() {
+    const tasks = useSelector((state) => state.task.tasks)
     return (
         <View style={styles.container}>
             <ScrollView>
-                {props.tasks.map(
+                {tasks.map(
                     (task, index) => (
                         <Task key={index} task={task} />
                     )
                 )}
             </ScrollView>
-
         </View>
     )
-
-
 }

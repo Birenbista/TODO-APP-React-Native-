@@ -1,45 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { View } from 'react-native';
 import styles from './src/Styles/main'
 import Header from './src/components/Header';
 import Tasks from './src/components/Tasks/Tasks';
 import Form from './src/components/Form/Form';
-import uuid from 'react-uuid';
-import { useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as SplashScreen from 'expo-splash-screen';
+
+import { Provider } from 'react-redux'
+import { store } from './src/redux/store'
+import AppLoader from './src/components/AppLoader';
+
+
+SplashScreen.preventAutoHideAsync();
+const butonTab = createBottomTabNavigator();
 
 export default function App() {
-  const [tasks, setTask] = useState([
-    {
-      id: uuid(),
-      description: "Walk the dog",
-      done: false
-    },
-    {
-      id: uuid(),
-      description: "Wash the car",
-      done: false
-    },
 
-  ])
-  const handleAddTask = (taskDescription, taskDone) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.push({
-      id: uuid(),
-      description: taskDescription,
-      done: taskDone
-
-    });
-    setTask(updatedTasks);
-  }
 
 
   return (
-    <View style={styles.container}>
+    <Provider store={store}>
+      <AppLoader />
 
-      <Header />
-      <Tasks tasks={tasks} />
-      <Form onAddTask={handleAddTask} />
-    </View>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <Header />
+          <butonTab.Navigator screenOptions={{ headerShown: false }}>
+            <butonTab.Screen name='List Tasks'
+              component={Tasks} options={{
+                tabBarIcon: ({ color, size }) => (
+                  <FontAwesome name="list" size={size} color={color} />
+                ),
+              }} />
+
+            <butonTab.Screen name='Add Task'
+              component={Form}
+              options={{
+                tabBarIcon: ({ color, size }) => (
+                  <FontAwesome name="plus" size={size} color={color} />
+                ),
+              }} />
+
+          </butonTab.Navigator>
+        </View>
+      </NavigationContainer>
+
+    </Provider>
 
   );
 }

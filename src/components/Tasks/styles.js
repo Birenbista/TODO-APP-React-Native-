@@ -4,6 +4,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignSelf: 'stretch',
-        backgroundColor: '#e0e0e0'
+        backgroundColor: '#84a3ad'
     }
 });
